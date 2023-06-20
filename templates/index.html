@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Welcome to your ShoppingList {% endblock %}</h1>
+    <table style="width: 100%;">
+        <tr>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Date Created</td>
+            <td></td>
+        </tr>
+    {% for item in ShoppingList %}
+        <tr>
+            <td>
+                <a href="#"><h2>{{ item['title'] }}</h2></a>
+            </td>
+            <td>
+                {{ item['content'] }}
+            </td>
+            <td>
+                <span class="badge badge-primary">{{ item['created'] }}</span>
+            </td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}
