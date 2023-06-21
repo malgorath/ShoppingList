@@ -20,7 +20,10 @@
             <td>
                 <span class="badge badge-primary">{{ item['created'] }}</span>
             </td>
-            <td></td>
+            <td>
+                {% set list1 = item['content'].split(' ') %}
+                <a href="https://www.amazon.com/s?k={{ item['title'] }}+{% for i in list1 %}{{ i }}+{% endfor %}" target="_self">Amazon Link</a>
+            </td>
         </tr>
     {% endfor %}
     </table>
