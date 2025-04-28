@@ -8,7 +8,7 @@
                 <td>Title</td>
                 <td>Description</td>
                 <td>Date Created</td>
-                <td></td>
+                <td>Actions</td>
             </tr>
         </thead>
         <tbody>
@@ -24,12 +24,13 @@
                     <span class="badge badge-primary">{{ item['created'] }}</span>
                 </td>
                 <td>
-                    {% set list1 = item['content'].split(' ') %}
-                    <a href="https://www.amazon.com/s?k={{ item['title'] }}+{% for i in list1 %}{{ i }}+{% endfor %}" target="_blank">Amazon Link</a>
+                    <form method="POST" action="{{ url_for('delete_item', item_id=item['id']) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    <a href="https://www.amazon.com/s?k={{ item['title'] }}+{% for i in item['content'].split(' ') %}{{ i }}+{% endfor %}" target="_blank" class="btn btn-primary btn-sm">Amazon Link</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}
