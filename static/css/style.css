@@ -1,6 +1,206 @@
-h1 {
-    border: 2px #eee solid;
-    color: brown;
-    text-align: center;
-    padding: 10px;
+/* Malgorath_suite inspired stylesheet */
+
+:root{
+    --bg: #f6f8fb;
+    --panel: #ffffff;
+    --muted: #6b7280;
+    --fg: #0f172a;
+    --accent: #4f46e5; /* indigo-600 */
+    --accent-2: #06b6d4; /* cyan-500 */
+    --shadow: 0 10px 30px rgba(15,23,42,0.06);
+    --glass: rgba(255,255,255,0.6);
 }
+
+.theme-dark{
+    --bg: #0b1220;
+    --panel: #0f1724;
+    --muted: #94a3b8;
+    --fg: #e6eef8;
+    --accent: #7c3aed; /* purple-600 */
+    --accent-2: #0891b2; /* cyan-600 */
+    --shadow: 0 10px 30px rgba(2,6,23,0.6);
+    --glass: rgba(255,255,255,0.03);
+}
+
+/* Base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background:var(--bg);
+    color:var(--fg);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:1100px}
+
+/* App card / content area */
+.app-card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--panel);
+    border-radius:12px;
+    padding:22px;
+    margin:26px auto;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(127,127,127,0.04);
+}
+
+/* Form fields should be white with black letters so they contrast on both themes */
+.themed-input, .form-control{
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* In dark theme, force white inputs to stand out */
+.theme-dark .themed-input, .theme-dark .form-control{
+    background: #ffffff;
+    color: #000000;
+}
+
+.d-flex .mb-0{font-weight:600}
+
+/* Form labels: use muted palette color so labels appear lighter in dark mode while inputs remain white */
+label, .form-group label{
+    color: var(--muted);
+}
+
+/* Ensure labels in dark theme also use the muted color (which is light in dark) */
+.theme-dark label, .theme-dark .form-group label{
+    color: var(--muted) !important;
+}
+
+/* Heading */
+h1{font-size:1.25rem;margin:0;color:var(--fg);font-weight:700}
+
+/* Buttons */
+.btn-primary{background:var(--accent);border-color:transparent}
+.btn-success{background:#10b981;border-color:transparent}
+
+/* Table */
+.table thead th{background:transparent;border-bottom:1px solid rgba(0,0,0,0.06);color:var(--muted);font-weight:600}
+.table tbody td{vertical-align:middle}
+.table-striped tbody tr:nth-of-type(odd){background:rgba(0,0,0,0.02)}
+
+/* Force table cells to use light backgrounds with black text so tables remain readable in dark mode */
+.table tbody td, .table thead th{
+    background: #ffffff !important;
+    color: #000000 !important;
+    vertical-align: middle;
+}
+
+/* Title and Description (first two columns) should stay left-aligned for readability */
+.table tbody td:nth-child(1), .table thead th:nth-child(1),
+.table tbody td:nth-child(2), .table thead th:nth-child(2){
+    text-align: left !important;
+}
+
+/* Center numeric / date / action columns (3..6) */
+.table tbody td:nth-child(3), .table thead th:nth-child(3),
+.table tbody td:nth-child(4), .table thead th:nth-child(4),
+.table tbody td:nth-child(5), .table thead th:nth-child(5),
+.table tbody td:nth-child(6), .table thead th:nth-child(6){
+    text-align: center !important;
+}
+
+/* Ensure striping stays subtle but on the white background */
+.table-striped tbody tr:nth-of-type(odd){background: #ffffff}
+.table-striped tbody tr:nth-of-type(even){background: #fbfbfb}
+
+/* Also apply force in dark theme so table stays light */
+.theme-dark .table tbody td, .theme-dark .table thead th,
+.theme-dark .table.table-striped tbody tr td {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+
+.new-row-highlight{animation:highlight 3s ease-in-out}
+@keyframes highlight{0%{background:rgba(96,165,250,0.22)}70%{background:transparent}100%{background:transparent}}
+
+/* Toasts */
+.toast{border-radius:8px;box-shadow:0 8px 20px rgba(2,6,23,0.08)}
+
+/* Theme toggle positioning */
+#themeToggleBtn{display:inline-flex;align-items:center;gap:8px;color:var(--fg)}
+#themeToggleBtn svg{display:block}
+
+/* Small screens */
+@media (max-width:575px){
+    .container{padding:0 12px}
+    .app-card{padding:14px}
+}
+
+/* Accessibility focus */
+a:focus,button:focus{outline:3px solid rgba(99,102,241,0.15);outline-offset:2px}
+
+/* subtle navbar tweaks */
+.navbar{border-bottom:1px solid rgba(0,0,0,0.05)}
+.navbar-brand img{transition:opacity 220ms ease, transform 220ms ease}
+
+/* small utility */
+.muted{color:var(--muted)}
+
+/* Navbar and layout tweaks */
+.navbar{background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);}
+.navbar,.navbar .container{max-width:1100px;margin:0 auto}
+.navbar-brand img{transition:opacity 220ms ease, transform 220ms ease}
+
+/* fixed header: attach menubar to top and add drop shadow */
+#mainNav{position:fixed;top:0;left:0;right:0;width:100%;z-index:1100;box-shadow:0 8px 24px rgba(2,6,23,0.18);background:var(--panel)}
+/* leave room for navbar (navbar height) + 20px gap for drop-shadow spacing */
+body{padding-top:calc(56px + 20px)}
+
+/* Keep the main app card 20px below the menubar for the drop-shadow effect */
+.app-card{margin:20px auto 26px}
+
+/* Dark theme: softer alternating greys for table rows */
+.theme-dark .table-striped tbody tr:nth-of-type(odd){background:#0f1724}
+.theme-dark .table-striped tbody tr:nth-of-type(even){background:#0b1220}
+.theme-dark .table thead th{color:var(--muted);opacity:0.85}
+
+/* Modal (Add Item) should follow the theme panel color; inputs remain white as earlier */
+.modal-content{
+    background:var(--panel);
+    color:var(--fg);
+    border-radius:8px;
+    border:1px solid rgba(127,127,127,0.06);
+}
+
+/* Ensure the dark theme modal uses the dark panel color */
+.theme-dark .modal-content{
+    background:var(--panel) !important;
+    color:var(--fg) !important;
+}
+
+/* Stronger selectors when modal is shown to override Bootstrap defaults */
+.theme-dark .modal.show .modal-content,
+.theme-dark .modal.fade.show .modal-content,
+.theme-dark .modal-dialog .modal-content{
+    background: var(--panel) !important;
+    color: var(--fg) !important;
+}
+
+/* Backdrop should be darker in dark mode */
+.modal-backdrop{
+    background-color: rgba(0,0,0,0.45);
+}
+.theme-dark .modal-backdrop{
+    background-color: rgba(2,6,23,0.6) !important;
+}
+
+/* Slightly dim header/footer controls to use muted color */
+.modal-header .modal-title, .modal-footer{color:var(--fg)}
+.modal-header .close{color:var(--muted)}
+
+/* Ensure modals are visible and not hidden under the fixed header on small screens */
+.modal{
+        padding-top: 80px; /* pushes modal content down when not centered */
+}
+
+@media (min-width: 576px){
+    .modal{ padding-top: 0; }
+}
+
+

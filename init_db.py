@@ -7,12 +7,17 @@ with open('./schema.sql') as f:
 
 cur = connection.cursor()
 
-cur.execute("INSERT INTO ShoppingList (title, content) VALUES (?, ?)",
-            ('Gatorade', 'zero orange')
+import datetime
+
+def days_from_now(days=7):
+    return (datetime.date.today() + datetime.timedelta(days=days)).isoformat()
+
+cur.execute("INSERT INTO ShoppingList (title, content, price, purchase_by) VALUES (?, ?, ?, ?)",
+            ('Gatorade', 'zero orange', 2.49, days_from_now())
             )
 
-cur.execute("INSERT INTO ShoppingList (title, content) VALUES (?, ?)",
-            ('Gatorade', 'zero grape')
+cur.execute("INSERT INTO ShoppingList (title, content, price, purchase_by) VALUES (?, ?, ?, ?)",
+            ('Gatorade', 'zero grape', 2.49, days_from_now())
             )
 
 connection.commit()
